@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Rohan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#ede1c8;
+    --ink:#272b14;
+    --olive:#5a6330;
+    --olive-deep:#3b4120;
+    --olive-pale:#b9bd97;
+    --shirt:#f7f4ec;
+    --hair:rgba(39,43,20,.2);
+    --hair-strong:rgba(39,43,20,.42);
+    --rust:#9a3412;
+    --blue:#3d6fb6;
+    --lime:#b5cc6a;
+    --card:#f7f4ec;
+    --muted:rgba(39,43,20,.68);
+    --placeholder-bg:rgba(247,244,236,.55);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --sand:#232613;
+      --ink:#ede1c8;
+      --olive:#a8b06a;
+      --olive-deep:#c9cfa3;
+      --olive-pale:#4a5128;
+      --shirt:#2c3018;
+      --card:#2c3018;
+      --hair:rgba(237,225,200,.22);
+      --hair-strong:rgba(237,225,200,.45);
+      --muted:rgba(237,225,200,.68);
+      --placeholder-bg:rgba(44,48,24,.6);
+      color-scheme: dark;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:"Bricolage Grotesque",sans-serif;margin:0;line-height:.95}
+  a{color:inherit}
+  ::selection{background:var(--lime);color:#272b14}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:14px clamp(16px,4vw,40px);
+    background:color-mix(in srgb, var(--sand) 88%, transparent);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hair);
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand-mark{
+    width:38px;height:38px;border-radius:50%;background:var(--olive-deep);color:var(--sand);
+    display:grid;place-items:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:19px;flex:none;
+  }
+  @media (prefers-color-scheme: dark){.brand-mark{color:#232613}}
+  .brand-name{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:18px;letter-spacing:-.01em;line-height:1}
+  .brand-sub{font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+  nav.main{display:flex;gap:4px;align-items:center}
+  nav.main a{
+    text-decoration:none;font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;
+  }
+  nav.main a:hover{background:var(--shirt);outline:1px solid var(--hair)}
+  .top-cta{
+    background:var(--ink);color:var(--sand);border-radius:999px;padding:10px 18px;
+    font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;
+  }
+  @media (prefers-color-scheme: dark){.top-cta{color:#232613}}
+  @media (max-width:640px){ nav.main a{padding:8px 9px;font-size:13px} .brand-sub{display:none} .top-cta{display:none} }
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+  /* ---------- Placeholder system ---------- */
+  .slot{
+    border:1.5px dashed var(--hair-strong);
+    border-radius:14px;
+    background:var(--placeholder-bg);
+    position:relative;
+  }
+  .slot-label{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--olive-deep);
+  }
+  .slot-label::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rust);flex:none}
+  .slot-note{color:var(--muted);font-size:14px}
+  .tag{
+    display:inline-block;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    border:1px solid var(--hair-strong);border-radius:999px;padding:4px 10px;color:var(--muted);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:clamp(28px,5vw,56px) 0 0;text-align:center;position:relative}
+  .hero-kicker{
+    display:inline-flex;gap:8px;align-items:center;border:1px solid var(--hair-strong);
+    border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;background:var(--shirt);
+  }
+  .hero-kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--olive)}
+  .hero-name{
+    font-size:clamp(4.8rem,19.5vw,21rem);
+    font-weight:800;letter-spacing:-.045em;line-height:.85;
+    margin:clamp(10px,2vw,22px) 0 0;text-transform:uppercase;
+    font-variation-settings:"wdth" 82;
+    max-width:100%;white-space:nowrap;text-align:center;
+  }
+  .hero-lastname{margin-top:14px}
+  .stage{
+    margin:clamp(20px,3.5vw,40px) auto 0;max-width:860px;
+    border-radius:22px;overflow:hidden;
+    border:1.5px dashed var(--hair-strong);
+    background:
+      radial-gradient(420px 260px at 18% 20%, color-mix(in srgb, var(--lime) 55%, transparent), transparent 70%),
+      radial-gradient(460px 300px at 85% 15%, color-mix(in srgb, var(--blue) 32%, transparent), transparent 70%),
+      radial-gradient(520px 340px at 55% 110%, color-mix(in srgb, var(--rust) 26%, transparent), transparent 70%),
+      var(--shirt);
+    padding:clamp(22px,4vw,44px);
+    will-change:transform;
+  }
+  .stage-inner{transition:transform .35s ease-out;will-change:transform}
+  .portrait{
+    width:min(300px,72vw);aspect-ratio:4/5;margin:0 auto;border-radius:16px;
+    border:1.5px dashed var(--hair-strong);background:var(--placeholder-bg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;text-align:center;
+  }
+  .portrait svg{opacity:.55}
+  .stage-caption{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .hero-intro{
+    max-width:680px;margin:clamp(24px,4vw,40px) auto 0;font-size:clamp(19px,2.6vw,26px);
+    line-height:1.4;font-weight:500;letter-spacing:-.01em;
+  }
+  .hero-intro .ph{border-bottom:2px dashed var(--hair-strong);color:var(--muted)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+  .scroll-cue{
+    margin:clamp(28px,4vw,44px) auto 0;padding-bottom:8px;
+    font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scroll-cue .arrow{animation:bob 2.2s ease-in-out infinite;font-size:18px;letter-spacing:0}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  @media (prefers-reduced-motion: reduce){.scroll-cue .arrow{animation:none} html{scroll-behavior:auto}}
+
+  /* ---------- Sections ---------- */
+  section{padding:clamp(56px,9vw,110px) 0 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:clamp(24px,4vw,44px)}
+  .sec-title{font-size:clamp(2.5rem,6vw,4.75rem);font-weight:700;letter-spacing:-.03em}
+  .sec-sub{color:var(--muted);max-width:420px;font-size:15px;margin:0}
+
+  .reveal{transform:translateY(14px);transition:transform .7s ease}
+  .reveal.in{transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{transform:none;transition:none}}
+
+  /* ---------- Services ---------- */
+  .svc-list{border-top:1px solid var(--hair)}
+  .svc{
+    display:grid;grid-template-columns:170px 1fr auto;gap:clamp(14px,3vw,36px);align-items:center;
+    padding:clamp(20px,3vw,30px) 6px;border-bottom:1px solid var(--hair);
+  }
+  .svc:hover{background:color-mix(in srgb, var(--shirt) 55%, transparent)}
+  .svc-metric{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,30px);letter-spacing:-.02em;color:var(--olive-deep)}
+  .svc-metric small{display:block;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  .svc h3{font-size:clamp(20px,2.6vw,28px);font-weight:700;letter-spacing:-.02em}
+  .svc p{margin:5px 0 0;color:var(--muted);font-size:15px;max-width:560px}
+  .svc .go{font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--hair-strong);border-radius:999px;padding:9px 16px;white-space:nowrap;background:var(--shirt)}
+  @media (max-width:760px){.svc{grid-template-columns:1fr}.svc .go{justify-self:start}}
+
+  /* ---------- Clients marquee ---------- */
+  .marquee-band{margin-top:clamp(56px,9vw,110px);background:var(--olive-deep);color:var(--sand);overflow:hidden;padding:20px 0}
+  @media (prefers-color-scheme: dark){.marquee-band{color:#232613;background:var(--olive-pale)}}
+  .marquee{display:flex;gap:0;width:max-content;animation:slide 30s linear infinite}
+  .marquee:hover{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){.marquee{animation:none;flex-wrap:wrap;width:auto}}
+  .mq-item{display:flex;align-items:center;gap:14px;padding:0 26px;font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:20px;white-space:nowrap}
+  .mq-item .sep{width:8px;height:8px;border-radius:50%;background:var(--lime);flex:none}
+  .mq-item .mq-slot{border:1.5px dashed currentColor;border-radius:10px;padding:6px 14px;font-size:14px;font-weight:600;opacity:.85}
+
+  /* ---------- Work ---------- */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+  .stat{background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:clamp(20px,3vw,32px)}
+  .stat .num{font-family:"Bricolage Grotesque",sans-serif;font-size:clamp(2.6rem,5.5vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--olive-deep)}
+  .stat p{margin:8px 0 0;color:var(--muted);font-size:14.5px}
+  @media (max-width:760px){.stats{grid-template-columns:1fr}}
+  .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:760px){.work-grid{grid-template-columns:1fr}}
+  .proj{background:var(--card);border:1px solid var(--hair);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+  .proj-img{
+    aspect-ratio:16/9;border-bottom:1.5px dashed var(--hair-strong);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;
+    background:
+      radial-gradient(300px 180px at 20% 30%, color-mix(in srgb, var(--lime) 40%, transparent), transparent 70%),
+      var(--placeholder-bg);
+  }
+  .proj:nth-child(2) .proj-img{background:radial-gradient(300px 180px at 80% 30%, color-mix(in srgb, var(--blue) 30%, transparent), transparent 70%),var(--placeholder-bg)}
+  .proj:nth-child(3) .proj-img{background:radial-gradient(300px 180px at 30% 70%, color-mix(in srgb, var(--rust) 26%, transparent), transparent 70%),var(--placeholder-bg)}
+  .proj:nth-child(4) .proj-img{background:radial-gradient(300px 180px at 70% 70%, color-mix(in srgb, var(--olive-pale) 65%, transparent), transparent 70%),var(--placeholder-bg)}
+  .proj-body{padding:clamp(18px,2.6vw,26px);display:flex;flex-direction:column;gap:8px;flex:1}
+  .proj-body h3{font-size:clamp(21px,2.6vw,27px);font-weight:700;letter-spacing:-.02em}
+  .proj-body p{margin:0;color:var(--muted);font-size:15px}
+  .proj-foot{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--hair)}
+  .proj-metric{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:19px;color:var(--olive-deep)}
+  .proj-metric small{display:block;font-family:"Inter",sans-serif;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+  .proj-link{font-weight:600;font-size:14px;text-decoration:none;border-bottom:2px solid var(--lime)}
+
+  /* ---------- Testimonials ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:900px){.quotes{grid-template-columns:1fr}}
+  .quote{border-radius:18px;padding:clamp(20px,3vw,30px);display:flex;flex-direction:column;gap:16px}
+  .quote .mark{font-family:"Bricolage Grotesque",sans-serif;font-size:44px;font-weight:800;line-height:.6;color:var(--rust)}
+  .quote blockquote{margin:0;font-size:17px;line-height:1.5;font-weight:500}
+  .quote figcaption{margin-top:auto;display:flex;align-items:center;gap:12px}
+  .avatar{width:44px;height:44px;border-radius:50%;border:1.5px dashed var(--hair-strong);background:var(--placeholder-bg);display:grid;place-items:center;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--muted);flex:none;text-align:center}
+  .quote .who{font-weight:600;font-size:14.5px}
+  .quote .role{font-size:13px;color:var(--muted)}
+
+  /* ---------- Personal note ---------- */
+  .note-band{background:var(--shirt);border:1px solid var(--hair);border-radius:22px;padding:clamp(24px,4.5vw,52px);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(20px,4vw,48px)}
+  @media (max-width:820px){.note-band{grid-template-columns:1fr}}
+  .note-band h2{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+  .note-text{border-radius:14px;padding:20px;min-height:170px}
+  .note-side{display:flex;flex-direction:column;gap:12px}
+  .note-photo{flex:1;min-height:190px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center}
+
+  /* ---------- Process ---------- */
+  .process{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,4vw,48px);align-items:start}
+  @media (max-width:860px){.process{grid-template-columns:1fr}}
+  .steps{display:flex;flex-direction:column}
+  .step{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--hair)}
+  .step:first-child{padding-top:4px}
+  .step-num{font-family:"Bricolage Grotesque",sans-serif;font-size:40px;font-weight:800;color:var(--olive-pale);line-height:1}
+  .step h3{font-size:21px;font-weight:700;letter-spacing:-.01em;margin-bottom:5px}
+  .step p{margin:0;color:var(--muted);font-size:15px}
+  .phone-wrap{display:flex;justify-content:center}
+  .phone{
+    width:min(290px,80vw);aspect-ratio:9/18.6;border-radius:38px;background:var(--ink);
+    padding:12px;box-shadow:0 24px 50px rgba(39,43,20,.25);
+  }
+  .phone-screen{
+    height:100%;border-radius:28px;background:var(--sand);overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    padding:22px;text-align:center;border:1.5px dashed var(--hair-strong);
+  }
+  .phone-notch{width:86px;height:20px;border-radius:999px;background:var(--ink);margin-bottom:8px;flex:none}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,4vw,48px)}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+  .bio-slot{border-radius:16px;padding:22px;min-height:220px}
+  .facts{border-top:1px solid var(--hair)}
+  .fact{display:flex;justify-content:space-between;gap:18px;padding:16px 2px;border-bottom:1px solid var(--hair);align-items:baseline}
+  .fact dt{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);flex:none}
+  .fact dd{margin:0;font-weight:600;font-size:15.5px;text-align:right}
+  .fact dd .ph{border-bottom:2px dashed var(--hair-strong);color:var(--muted);font-weight:500}
+
+  /* ---------- Assets checklist ---------- */
+  .assets{background:var(--olive-deep);color:var(--sand);border-radius:22px;padding:clamp(24px,4.5vw,52px)}
+  @media (prefers-color-scheme: dark){.assets{background:var(--olive-pale);color:#232613}}
+  .assets h2{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:700;letter-spacing:-.03em}
+  .assets .lead{opacity:.85;max-width:620px;margin:12px 0 26px}
+  .asset-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media (max-width:900px){.asset-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.asset-grid{grid-template-columns:1fr}}
+  .asset-item{border:1.5px dashed color-mix(in srgb, currentColor 45%, transparent);border-radius:14px;padding:16px 18px}
+  .asset-item b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;margin-bottom:4px}
+  .asset-item span{font-size:13.5px;opacity:.8}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:stretch}
+  @media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+  form.contact{background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .field input,.field textarea{
+    width:100%;border:1px solid var(--hair-strong);border-radius:10px;background:var(--sand);
+    color:var(--ink);padding:12px 14px;font:inherit;font-size:15px;
+  }
+  .field input:focus,.field textarea:focus{outline:2px solid var(--olive);outline-offset:1px}
+  .send{
+    background:var(--ink);color:var(--sand);border:0;border-radius:999px;padding:14px 22px;
+    font:inherit;font-weight:600;font-size:15px;cursor:pointer;align-self:flex-start;
+  }
+  @media (prefers-color-scheme: dark){.send{color:#232613}}
+  .form-note{font-size:13px;color:var(--muted);margin:0}
+  .form-ok{display:none;background:color-mix(in srgb, var(--lime) 35%, var(--card));border:1px solid var(--hair);border-radius:10px;padding:12px 14px;font-size:14.5px;font-weight:500}
+  .side-panel{background:var(--olive-deep);color:var(--sand);border-radius:18px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:18px}
+  @media (prefers-color-scheme: dark){.side-panel{background:var(--olive-pale);color:#232613}}
+  .side-panel h3{font-size:26px;font-weight:700;letter-spacing:-.02em}
+  .side-row{border-top:1px solid color-mix(in srgb, currentColor 25%, transparent);padding-top:14px}
+  .side-row .k{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;opacity:.75}
+  .side-row .v{font-weight:600;font-size:16px;margin-top:3px}
+  .side-row .v .ph{border-bottom:2px dashed currentColor;opacity:.75;font-weight:500}
+  .socials{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .socials span{border:1.5px dashed color-mix(in srgb, currentColor 50%, transparent);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600}
+
+  footer{margin-top:clamp(64px,10vw,120px);border-top:1px solid var(--hair);padding:28px 0 40px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .foot p{margin:0;color:var(--muted);font-size:13.5px}
+  .to-top{text-decoration:none;font-weight:600;font-size:14px;border:1px solid var(--hair-strong);border-radius:999px;padding:9px 16px;background:var(--shirt)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Back to top">
+    <span class="brand-mark">R</span>
+    <span>
+      <span class="brand-name">Rohan</span>
+      <span class="brand-sub" style="display:block">Portfolio — draft</span>
+    </span>
+  </a>
+  <nav class="main" aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#assets">Assets</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="top-cta" href="#assets">What to send →</a>
+</header>
+
+<main id="top">
+  <!-- ============ HERO ============ -->
+  <div class="wrap">
+    <div class="hero">
+      <span class="hero-kicker"><span class="dot"></span> Portfolio draft — ready for your content</span>
+      <h1 class="hero-name">Rohan</h1>
+      <div class="hero-lastname">
+        <span class="slot-label">Last name goes here</span>
+        <span class="slot-note"> — plus your role line, e.g. “Developer · Designer · Creator”</span>
+      </div>
+
+      <div class="stage" id="stage" aria-label="Portrait placeholder">
+        <div class="stage-inner" id="stageInner">
+          <div class="portrait">
+            <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+            <span class="slot-label">Your photo goes here</span>
+            <span class="slot-note">A clear portrait or a photo of you at work.<br>Portrait orientation works best.</span>
+          </div>
+          <div class="stage-caption">
+            <span class="tag">Your location</span>
+            <span class="tag">Your availability</span>
+            <span class="tag">Your headline skill</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-intro">
+        <span class="ph">Your one-line intro goes here</span> — one sentence on what you do and who you do it for. This is the first thing a client reads, so it carries the whole page.
+      </p>
+      <div class="hero-meta">
+        <span class="tag">Role — to add</span>
+        <span class="tag">Based in — to add</span>
+        <span class="tag">Open to — to add</span>
+      </div>
+      <div class="scroll-cue">Scroll to see what I make <span class="arrow" aria-hidden="true">↓</span></div>
+    </div>
+  </div>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">What I do</h2>
+        <p class="sec-sub">Six services, each with a real result next to it. Swap every placeholder below for one of your own skills and the strongest number you have for it.</p>
+      </div>
+      <div class="svc-list reveal">
+        <article class="svc">
+          <div class="svc-metric">—<small>Your metric</small></div>
+          <div><h3>Your skill — title</h3><p>One line on what this service is and who it helps. Keep it to a single sentence.</p></div>
+          <a class="go" href="#work">See the work</a>
+        </article>
+        <article class="svc">
+          <div class="svc-metric">—<small>Your metric</small></div>
+          <div><h3>Your skill — title</h3><p>One line on what this service is and who it helps. Keep it to a single sentence.</p></div>
+          <a class="go" href="#work">See the work</a>
+        </article>
+        <article class="svc">
+          <div class="svc-metric">—<small>Your metric</small></div>
+          <div><h3>Your skill — title</h3><p>One line on what this service is and who it helps. Keep it to a single sentence.</p></div>
+          <a class="go" href="#work">See the work</a>
+        </article>
+        <article class="svc">
+          <div class="svc-metric">—<small>Your metric</small></div>
+          <div><h3>Your skill — title</h3><p>One line on what this service is and who it helps. Keep it to a single sentence.</p></div>
+          <a class="go" href="#work">See the work</a>
+        </article>
+        <article class="svc">
+          <div class="svc-metric">—<small>Your metric</small></div>
+          <div><h3>Your skill — title</h3><p>One line on what this service is and who it helps. Keep it to a single sentence.</p></div>
+          <a class="go" href="#work">See the work</a>
+        </article>
+        <article class="svc">
+          <div class="svc-metric">—<small>Your metric</small></div>
+          <div><h3>Your skill — title</h3><p>One line on what this service is and who it helps. Keep it to a single sentence.</p></div>
+          <a class="go" href="#work">See the work</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENTS MARQUEE ============ -->
+  <div class="marquee-band" aria-label="Clients">
+    <div class="marquee" id="marquee">
+      <div class="mq-item"><span class="mq-slot">Client name</span><span class="sep"></span></div>
+      <div class="mq-item"><span class="mq-slot">Client name</span><span class="sep"></span></div>
+      <div class="mq-item"><span class="mq-slot">Client name</span><span class="sep"></span></div>
+      <div class="mq-item"><span class="mq-slot">Client name</span><span class="sep"></span></div>
+      <div class="mq-item"><span class="mq-slot">Client name</span><span class="sep"></span></div>
+      <div class="mq-item"><span class="mq-slot">Your own project / brand</span><span class="sep"></span></div>
+    </div>
+  </div>
+
+  <!-- ============ SELECTED WORK ============ -->
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">Selected work</h2>
+        <p class="sec-sub">Your three headline numbers up top, then four projects. Each project needs one image, one line of context, and one result.</p>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat"><div class="num">—</div><p><strong>Your headline stat.</strong> The biggest number that proves your work lands — views, sales, users, followers, projects shipped.</p></div>
+        <div class="stat"><div class="num">—</div><p><strong>Your second stat.</strong> A different kind of proof — growth, reach, revenue, or time saved for a client.</p></div>
+        <div class="stat"><div class="num">—</div><p><strong>Your third stat.</strong> Something recent, so the page reads as current, not historic.</p></div>
+      </div>
+
+      <div class="work-grid reveal">
+        <article class="proj">
+          <div class="proj-img"><span class="slot-label">Your project — image</span><span class="slot-note">Screenshot, photo, or cover image</span></div>
+          <div class="proj-body">
+            <span class="tag">Project type — to add</span>
+            <h3>Your project — title</h3>
+            <p>One or two lines: what it was, who it was for, and what you actually did on it.</p>
+            <div class="proj-foot"><span class="proj-metric">—<small>Your result</small></span><a class="proj-link" href="#contact">Read the case</a></div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj-img"><span class="slot-label">Your project — image</span><span class="slot-note">Screenshot, photo, or cover image</span></div>
+          <div class="proj-body">
+            <span class="tag">Project type — to add</span>
+            <h3>Your project — title</h3>
+            <p>One or two lines: what it was, who it was for, and what you actually did on it.</p>
+            <div class="proj-foot"><span class="proj-metric">—<small>Your result</small></span><a class="proj-link" href="#contact">Read the case</a></div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj-img"><span class="slot-label">Your project — image</span><span class="slot-note">Screenshot, photo, or cover image</span></div>
+          <div class="proj-body">
+            <span class="tag">Project type — to add</span>
+            <h3>Your project — title</h3>
+            <p>One or two lines: what it was, who it was for, and what you actually did on it.</p>
+            <div class="proj-foot"><span class="proj-metric">—<small>Your result</small></span><a class="proj-link" href="#contact">Read the case</a></div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj-img"><span class="slot-label">Your project — image</span><span class="slot-note">Screenshot, photo, or cover image</span></div>
+          <div class="proj-body">
+            <span class="tag">Project type — to add</span>
+            <h3>Your project — title</h3>
+            <p>One or two lines: what it was, who it was for, and what you actually did on it.</p>
+            <div class="proj-foot"><span class="proj-metric">—<small>Your result</small></span><a class="proj-link" href="#contact">Read the case</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">What people say</h2>
+        <p class="sec-sub">Three short quotes from clients, managers, or collaborators. A name and a role under each one makes it believable.</p>
+      </div>
+      <div class="quotes reveal">
+        <figure class="quote slot">
+          <span class="mark" aria-hidden="true">“</span>
+          <span class="slot-label">Your testimonial</span>
+          <blockquote>One or two sentences from someone you worked with — what you did and what changed for them.</blockquote>
+          <figcaption><span class="avatar">PHOTO</span><span><span class="who">Name — to add</span><br><span class="role">Role / company — to add</span></span></figcaption>
+        </figure>
+        <figure class="quote slot">
+          <span class="mark" aria-hidden="true">“</span>
+          <span class="slot-label">Your testimonial</span>
+          <blockquote>One or two sentences from someone you worked with — what you did and what changed for them.</blockquote>
+          <figcaption><span class="avatar">PHOTO</span><span><span class="who">Name — to add</span><br><span class="role">Role / company — to add</span></span></figcaption>
+        </figure>
+        <figure class="quote slot">
+          <span class="mark" aria-hidden="true">“</span>
+          <span class="slot-label">Your testimonial</span>
+          <blockquote>One or two sentences from someone you worked with — what you did and what changed for them.</blockquote>
+          <figcaption><span class="avatar">PHOTO</span><span><span class="who">Name — to add</span><br><span class="role">Role / company — to add</span></span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERSONAL NOTE ============ -->
+  <section id="note">
+    <div class="wrap">
+      <div class="note-band reveal">
+        <div>
+          <h2>And in my own words</h2>
+          <div class="note-text slot">
+            <span class="slot-label">Your standout story goes here</span>
+            <p class="slot-note" style="margin-top:10px">Your best single piece of work, told as a story: what you spotted, what you made, and the result it got. Include the numbers — this is the section people remember and share.</p>
+          </div>
+        </div>
+        <div class="note-side">
+          <div class="note-photo slot">
+            <span class="slot-label">Your photo / screenshot</span>
+            <span class="slot-note">The post, product, or moment from your story</span>
+          </div>
+          <div class="slot" style="padding:16px 18px">
+            <span class="slot-label">Your result — the numbers</span>
+            <p class="slot-note" style="margin:6px 0 0">Views · reactions · comments · sales — whichever your story earned.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">How I work</h2>
+        <p class="sec-sub">Four steps, in your own words. Clients hire the process as much as the output — show them yours.</p>
+      </div>
+      <div class="process reveal">
+        <div class="steps">
+          <div class="step"><span class="step-num">1</span><div><h3>Your step one — title</h3><p>How a project starts with you. What you look at, ask, or research first.</p></div></div>
+          <div class="step"><span class="step-num">2</span><div><h3>Your step two — title</h3><p>How you make the work. Your tools, your draft stage, how you shape it.</p></div></div>
+          <div class="step"><span class="step-num">3</span><div><h3>Your step three — title</h3><p>How it ships. Review, feedback, revisions, and going live.</p></div></div>
+          <div class="step"><span class="step-num">4</span><div><h3>Your step four — title</h3><p>How you measure it. The numbers you check and what you change next time.</p></div></div>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone" aria-label="Phone mockup placeholder">
+            <div class="phone-screen">
+              <span class="phone-notch"></span>
+              <span class="slot-label">Your work — on a phone</span>
+              <span class="slot-note">A screenshot of your best post, app, or project as it looks on mobile. This slot becomes a real screenshot once you send one.</span>
+              <span class="tag">Screenshot — to add</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">Who’s behind the work</h2>
+        <p class="sec-sub">A short, human bio — not a CV. Two or three paragraphs is plenty.</p>
+      </div>
+      <div class="about-grid reveal">
+        <div class="bio-slot slot">
+          <span class="slot-label">Your bio goes here</span>
+          <p class="slot-note" style="margin-top:10px">Paragraph one: who you are and what you do now.<br><br>Paragraph two: how you got here — your background, your own project or business if you have one, and a result you’re proud of.<br><br>Paragraph three: your closing line — the kind of work you want more of. “Give me ___ and I’ll turn it into ___” works well here.</p>
+        </div>
+        <dl class="facts">
+          <div class="fact"><dt>Based in</dt><dd><span class="ph">Your city, country</span></dd></div>
+          <div class="fact"><dt>Experience</dt><dd><span class="ph">Your years / background</span></dd></div>
+          <div class="fact"><dt>Currently</dt><dd><span class="ph">Your role / company</span></dd></div>
+          <div class="fact"><dt>Founder of</dt><dd><span class="ph">Your project — if any</span></dd></div>
+          <div class="fact"><dt>Platforms / tools</dt><dd><span class="ph">Your platforms &amp; tools</span></dd></div>
+          <div class="fact"><dt>Languages</dt><dd><span class="ph">Your languages</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ASSETS CHECKLIST ============ -->
+  <section id="assets">
+    <div class="wrap">
+      <div class="assets reveal">
+        <span class="tag" style="border-color:currentColor;color:inherit;opacity:.85">For Rohan — sending your content</span>
+        <h2 style="margin-top:14px">Everything has a place.<br>Here’s what to send.</h2>
+        <p class="lead">Every dashed box on this page is a slot waiting for the real thing. Send the items below and each one drops straight into its place — no redesign needed.</p>
+        <div class="asset-grid">
+          <div class="asset-item"><b>1 · Photo of you</b><span>One clear portrait for the hero stage, plus one casual photo for the About section.</span></div>
+          <div class="asset-item"><b>2 · Name, role &amp; intro</b><span>Full name, your role/title, where you’re based, and a one-line intro sentence.</span></div>
+          <div class="asset-item"><b>3 · Your services</b><span>Up to six skills — a title, one line each, and your best metric for each.</span></div>
+          <div class="asset-item"><b>4 · Four projects</b><span>An image, title, one-line description, and the result for each project.</span></div>
+          <div class="asset-item"><b>5 · Your numbers</b><span>Three headline stats for the Selected Work section, with the date they’re true as of.</span></div>
+          <div class="asset-item"><b>6 · Clients &amp; quotes</b><span>Client names for the strip, and up to three testimonials with names and roles.</span></div>
+          <div class="asset-item"><b>7 · Your story</b><span>Your single best piece of work, told briefly, with its screenshot and numbers.</span></div>
+          <div class="asset-item"><b>8 · Your process</b><span>Four short steps for how you work, plus one phone screenshot of your work.</span></div>
+          <div class="asset-item"><b>9 · Contact &amp; socials</b><span>Email, phone if you want it public, and links: Instagram, LinkedIn, GitHub, or any others.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2 class="sec-title">Let’s work together</h2>
+        <p class="sec-sub">The form below is a working front-end demo. It gets wired to your email once your contact details land.</p>
+      </div>
+      <div class="contact-grid reveal">
+        <form class="contact" id="contactForm" novalidate>
+          <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" required></div>
+          <div class="field"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+          <div class="field"><label for="cf-msg">Project details</label><textarea id="cf-msg" name="message" rows="5" placeholder="What are you building, and when do you need it?" required></textarea></div>
+          <div class="form-ok" id="formOk" role="status">Thanks — your message is noted in this demo. Once the form is wired to Rohan’s email, messages will land straight in his inbox.</div>
+          <button class="send" type="submit">Send message</button>
+          <p class="form-note">Demo only — nothing is sent or stored yet. Wiring (mailto or a form backend) is added with Rohan’s real contact details.</p>
+        </form>
+        <aside class="side-panel">
+          <h3>Contact details</h3>
+          <div class="side-row"><div class="k">Email</div><div class="v"><span class="ph">Your email goes here</span></div></div>
+          <div class="side-row"><div class="k">Phone / WhatsApp</div><div class="v"><span class="ph">Your number — if public</span></div></div>
+          <div class="side-row"><div class="k">Based in</div><div class="v"><span class="ph">Your city, country</span></div></div>
+          <div class="side-row"><div class="k">Response time</div><div class="v"><span class="ph">Your usual reply time</span></div></div>
+          <div class="side-row">
+            <div class="k">Find me on</div>
+            <div class="socials"><span>Instagram — link to add</span><span>LinkedIn — link to add</span><span>GitHub — link to add</span></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p>© Rohan — portfolio draft. Placeholder slots are replaced as real content arrives.</p>
+    <a class="to-top" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+  // Duplicate marquee content for a seamless loop
+  (function(){
+    var m = document.getElementById('marquee');
+    if (m) m.innerHTML += m.innerHTML;
+  })();
+
+  // Hero stage subtly follows the cursor (desktop, motion-safe only)
+  (function(){
+    var stage = document.getElementById('stage');
+    var inner = document.getElementById('stageInner');
+    if (!stage || !inner) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    var raf = null, tx = 0, ty = 0;
+    stage.addEventListener('mousemove', function(e){
+      var r = stage.getBoundingClientRect();
+      tx = (e.clientX - r.left) / r.width - 0.5;
+      ty = (e.clientY - r.top) / r.height - 0.5;
+      if (raf) return;
+      raf = requestAnimationFrame(function(){
+        inner.style.transform = 'translate(' + (tx * 14) + 'px,' + (ty * 10) + 'px)';
+        raf = null;
+      });
+    });
+    stage.addEventListener('mouseleave', function(){ inner.style.transform = 'translate(0,0)'; });
+  })();
+
+  // Scroll reveal
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  // Contact form — front-end demo only
+  (function(){
+    var form = document.getElementById('contactForm');
+    var ok = document.getElementById('formOk');
+    if (!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('cf-name');
+      var email = document.getElementById('cf-email');
+      var msg = document.getElementById('cf-msg');
+      var valid = true;
+      [name, email, msg].forEach(function(f){
+        if (!f.value.trim()) { f.style.outline = '2px solid #9a3412'; valid = false; }
+        else { f.style.outline = ''; }
+      });
+      if (email.value && email.value.indexOf('@') === -1) { email.style.outline = '2px solid #9a3412'; valid = false; }
+      if (!valid) { ok.style.display = 'none'; return; }
+      ok.style.display = 'block';
+      ok.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      form.querySelector('.send').textContent = 'Message noted ✓';
+    });
+  })();
+</script>
+</body>
+</html>
